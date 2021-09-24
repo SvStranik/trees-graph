@@ -72,32 +72,36 @@ class BST:
         if not NodeToDelete.NodeHasKey: return False   
         NodeToDelete = NodeToDelete.Node   
         if not NodeToDelete.LeftChild and not NodeToDelete.RightChild:
-            if not NodeToDelete.Parent: 
-                self.Root = None
-                return
-            ParentNode = NodeToDelete.Parent
-            if self.ParentLeftChild(ParentNode,NodeToDelete):
-                ParentNode.LeftChild = None
-            else: ParentNode.RightChild = None
+            if not NodeToDelete.Parent: self.Root = None
+            else:
+                ParentNode = NodeToDelete.Parent
+                if self.ParentLeftChild(ParentNode,NodeToDelete):ParentNode.LeftChild = None
+                else: ParentNode.RightChild = None
+        
         else:
             ReceivingNode = NodeToDelete.LeftChild
             if NodeToDelete.RightChild:
-                ReceivingNode = NodeToDelete.RightChild  
+                ReceivingNode = NodeToDelete.RightChild
                 if ReceivingNode.LeftChild:
                     ReceivingNode = self.FinMinMax(ReceivingNode,False)
-                    NodeToDelete.RightChild.Parent = ReceivingNode
-                    ReceivingNode.Parent.LeftChild = ReceivingNode.RightChild
+                    if ReceivingNode.RightChild:
+                        ReceivingNode.RightChild.Parent = ReceivingNode.Parent
+                        ReceivingNode.Parent.LeftChild = ReceivingNode.RightChild
+                    else: ReceivingNode.Parent.LeftChild = None
                     ReceivingNode.RightChild = NodeToDelete.RightChild
+                    NodeToDelete.RightChild.Parent = ReceivingNode
+                if NodeToDelete.LeftChild:
+                    NodeToDelete.LeftChild.Parent = ReceivingNode
                     ReceivingNode.LeftChild = NodeToDelete.LeftChild
-                else:
-                    ReceivingNode.LeftChild = NodeToDelete.LeftChild
-            if not NodeToDelete.Parent:
-                self.Root = ReceivingNode
-            else:
+            if NodeToDelete.Parent:
                 ReceivingNode.Parent = NodeToDelete.Parent
-                if NodeToDelete.Parent.RightChild == NodeToDelete:
-                    NodeToDelete.Parent.RightChild = ReceivingNode
-                else: NodeToDelete.Parent.LeftChild = ReceivingNode
+                ParentNode = NodeToDelete.Parent
+                if self.ParentLeftChild(ParentNode,NodeToDelete): ParentNode.LeftChild = ReceivingNode
+                else: ParentNode.RightChild = ReceivingNode
+            else:
+                self.Root = ReceivingNode
+                ReceivingNode.Parent = None
+	
     def Count(self):
         def RecursionNode(Node):
             if Node:
