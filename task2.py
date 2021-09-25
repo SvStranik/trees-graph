@@ -71,7 +71,7 @@ class BST:
         NodeToDelete = self.FindNodeByKey(key)
         if not NodeToDelete.NodeHasKey: 
             return False   
-        NodeToDelete = NodeToDelete.Node   
+        NodeToDelete = NodeToDelete.Node 
         if not NodeToDelete.LeftChild and not NodeToDelete.RightChild:
             if not NodeToDelete.Parent: self.Root = None
             else:
@@ -79,8 +79,7 @@ class BST:
                 if self.ParentLeftChild(ParentNode,NodeToDelete):ParentNode.LeftChild = None
                 else: ParentNode.RightChild = None
         else:
-            ReceivingNode = NodeToDelete.LeftChild
-            if NodeToDelete.RightChild:
+            if NodeToDelete.LeftChild and NodeToDelete.RightChild:
                 ReceivingNode = NodeToDelete.RightChild
                 if ReceivingNode.LeftChild:
                     ReceivingNode = self.FinMinMax(ReceivingNode,False)
@@ -90,9 +89,11 @@ class BST:
                     else: ReceivingNode.Parent.LeftChild = None
                     ReceivingNode.RightChild = NodeToDelete.RightChild
                     NodeToDelete.RightChild.Parent = ReceivingNode
-                if NodeToDelete.LeftChild:
-                    NodeToDelete.LeftChild.Parent = ReceivingNode
-                    ReceivingNode.LeftChild = NodeToDelete.LeftChild
+                NodeToDelete.LeftChild.Parent = ReceivingNode
+                ReceivingNode.LeftChild = NodeToDelete.LeftChild
+            elif NodeToDelete.RightChild:
+                ReceivingNode = NodeToDelete.RightChild
+            else: ReceivingNode = NodeToDelete.LeftChild               
             if NodeToDelete.Parent:
                 ReceivingNode.Parent = NodeToDelete.Parent
                 ParentNode = NodeToDelete.Parent
@@ -104,7 +105,7 @@ class BST:
             NodeToDelete.Parent = None
             NodeToDelete.LeftChild = None
             NodeToDelete.RightChild = None
-
+	
     def Count(self):
         def RecursionNode(Node):
             if Node:
