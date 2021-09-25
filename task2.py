@@ -7,7 +7,7 @@ class BSTNode:
         self.LeftChild = None
         self.RightChild = None
 
-
+    
 class BSTFind:
 
     def __init__(self):
@@ -69,7 +69,8 @@ class BST:
 
     def DeleteNodeByKey(self, key):
         NodeToDelete = self.FindNodeByKey(key)
-        if not NodeToDelete.NodeHasKey: return False   
+        if not NodeToDelete.NodeHasKey: 
+            return False   
         NodeToDelete = NodeToDelete.Node   
         if not NodeToDelete.LeftChild and not NodeToDelete.RightChild:
             if not NodeToDelete.Parent: self.Root = None
@@ -77,7 +78,6 @@ class BST:
                 ParentNode = NodeToDelete.Parent
                 if self.ParentLeftChild(ParentNode,NodeToDelete):ParentNode.LeftChild = None
                 else: ParentNode.RightChild = None
-        
         else:
             ReceivingNode = NodeToDelete.LeftChild
             if NodeToDelete.RightChild:
@@ -101,7 +101,10 @@ class BST:
             else:
                 self.Root = ReceivingNode
                 ReceivingNode.Parent = None
-	
+            NodeToDelete.Parent = None
+            NodeToDelete.LeftChild = None
+            NodeToDelete.RightChild = None
+
     def Count(self):
         def RecursionNode(Node):
             if Node:
