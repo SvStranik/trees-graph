@@ -102,9 +102,10 @@ class BST:
             else:
                 self.Root = ReceivingNode
                 ReceivingNode.Parent = None
-            NodeToDelete.Parent = None
-            NodeToDelete.LeftChild = None
-            NodeToDelete.RightChild = None
+        NodeToDelete.Parent = None
+        NodeToDelete.LeftChild = None
+        NodeToDelete.RightChild = None
+        return True
 	
     def Count(self):
         def RecursionNode(Node):
