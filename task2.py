@@ -41,7 +41,7 @@ class BST:
 
     def AddKeyValue(self, key, val):
         resultatFindNode = self.FindNodeByKey(key)
-        if resultatFindNode.NodeHasKey == True:
+        if resultatFindNode.NodeHasKey == True: # Если узел найден
             return False
         newNodeInAdd = BSTNode(key,val,resultatFindNode.Node)
         if resultatFindNode.Node == None:
@@ -50,6 +50,7 @@ class BST:
             resultatFindNode.Node.RightChild = newNodeInAdd
         else:
             resultatFindNode.Node.LeftChild = newNodeInAdd
+        return True
 
   
     def FinMinMax(self, FromNode, FindMax):
