@@ -17,9 +17,6 @@ class BalancedBST:
 
 
     def GenerateTree(self, a):
-        array_sorted = sorted(a)
-        root_node = self.Root
-
         def RecursivGenerateTree(root_node,array_sorted,Level = 0):
             central_element = len(array_sorted) // 2
             if not array_sorted == []:
@@ -28,8 +25,8 @@ class BalancedBST:
                 NewNode.LeftChild = RecursivGenerateTree(NewNode,array_sorted[:central_element],Level + 1)    
                 NewNode.RightChild = RecursivGenerateTree(NewNode,array_sorted[central_element+1:],Level + 1)
                 return NewNode
-                
-        return RecursivGenerateTree(root_node,array_sorted)
+        self.Root = RecursivGenerateTree(self.Root,sorted(a))
+        return self.Root
 
 
     def IsBalanced(self, root_node):
