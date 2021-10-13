@@ -30,7 +30,7 @@ class BalancedBST:
 
 
     def IsBalanced(self, root_node):
-
+        if root_node == None: return None
         def IsCorrectTree(root_node):
             if root_node:
                 if root_node.LeftChild:
