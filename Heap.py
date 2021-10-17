@@ -25,6 +25,7 @@ class Heap:
         array_heap[0] = array_heap[position_el_add-1]
         array_heap[position_el_add-1] = None
         position_el_add = 0
+	
         def DeletElementInHeap(array_heap,position_el_add):
             index_left_node = (len(array_heap) - 1 if 2*position_el_add + 1 >= len(array_heap) else 2*position_el_add + 1)
             index_right_node = (len(array_heap) - 1 if 2*position_el_add + 2 >= len(array_heap) else 2*position_el_add + 2)
@@ -39,6 +40,7 @@ class Heap:
                 position_el_add = max_index_node
             else: return
             DeletElementInHeap(array_heap,position_el_add)
+		
         DeletElementInHeap(array_heap,position_el_add)   
         return root_value
 
