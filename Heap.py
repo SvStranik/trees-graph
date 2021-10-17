@@ -12,8 +12,7 @@ class Heap:
 
     def MakeHeap(self, a, depth):
         array_heap = self.CreateArrayHeap(depth)
-        for (position,list_a) in enumerate(a):          
-            array_heap[position] = list_a               
+        [self.Add(element_heap) for element_heap in a]             
 
     def GetMax(self):
         array_heap = self.getHeapArray()
