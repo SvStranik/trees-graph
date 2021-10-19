@@ -2,7 +2,7 @@ class Vertex:
 
     def __init__(self, val):
         self.Value = val
-  
+
 class SimpleGraph:
     
     def __init__(self, size):
@@ -16,30 +16,38 @@ class SimpleGraph:
     def getAdjacencyMatrix(self):
         return self.m_adjacency
         
+    def getObjectValueVertex(self,val):
+        return Vertex(val)
+        
     def AddVertex(self, v):
-        new_vertex = Vertex(v)
         list_vertex = self.getListVertex()
         for (i,j) in enumerate(list_vertex):
             if not j:
-                list_vertex[i] = v
-                return
-    # здесь и далее, параметры v -- индекс вершины
-    # в списке  vertex
+                list_vertex[i] = self.getObjectValueVertex(v)
+                return list_vertex[i]
+    
     def RemoveVertex(self, v):
-        # ваш код удаления вершины со всеми её рёбрами
-        pass
+        adjacency_matrix = self.getAdjacencyMatrix()
+        for i in range(self.max_vertex):
+            adjacency_matrix[v][i] = 0
+            adjacency_matrix[i][v] = 0
     
     def IsEdge(self, v1, v2):
-        # True если есть ребро между вершинами v1 и v2
-        return False
+        adjacency_matrix = self.getAdjacencyMatrix()
+        return (True if adjacency_matrix[v1][v2] == 
+                        adjacency_matrix[v2][v1] == 1 else False)  
     
     def AddEdge(self, v1, v2):
         adjacency_matrix = self.getAdjacencyMatrix()
         adjacency_matrix[v1][v2] = 1
         adjacency_matrix[v2][v1] = 1
-        # добавление ребра между вершинами v1 и v2
+
 
     
     def RemoveEdge(self, v1, v2):
+        adjacency_matrix = self.getAdjacencyMatrix()
+        adjacency_matrix[v1][v2] = 0
+        adjacency_matrix[v2][v1] = 0
         # удаление ребра между вершинами v1 и v2
         pass
+
