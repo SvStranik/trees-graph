@@ -41,13 +41,10 @@ class SimpleGraph:
         adjacency_matrix = self.getAdjacencyMatrix()
         adjacency_matrix[v1][v2] = 1
         adjacency_matrix[v2][v1] = 1
-
-
     
     def RemoveEdge(self, v1, v2):
         adjacency_matrix = self.getAdjacencyMatrix()
         adjacency_matrix[v1][v2] = 0
         adjacency_matrix[v2][v1] = 0
-        # удаление ребра между вершинами v1 и v2
-        pass
+
 
