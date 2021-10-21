@@ -35,8 +35,7 @@ class SimpleGraph:
         adjacency_matrix = self.getAdjacencyMatrix()
         if self.CheckingVertexes(v):
             for i in range(self.max_vertex):
-                adjacency_matrix[v][i] = 0
-                adjacency_matrix[i][v] = 0
+                adjacency_matrix[v][i] = adjacency_matrix[i][v] = 0
     
     def IsEdge(self, v1, v2):
         adjacency_matrix = self.getAdjacencyMatrix()
