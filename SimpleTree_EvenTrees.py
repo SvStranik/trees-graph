@@ -9,6 +9,7 @@ class SimpleTree:
 
     def __init__(self, root):
         self.Root = root
+
 	
     def AddChild(self, ParentNode, NewChild):
         ParentNode.Children.append(NewChild)
@@ -62,4 +63,22 @@ class SimpleTree:
         return counter
 
     def EvenTrees(self):
-        return []
+        if self.Root == None or self.Count() % 2 != 0: return []
+        
+        def MakingTrees(Node,array_even_trees = []):
+            
+            def SumNodeTrees(Node):
+                sum_node_trees = len(Node.Children)
+                for i,j in enumerate(Node.Children):
+                    sum_node_trees += SumNodeTrees(Node.Children[i])
+                return sum_node_trees
+
+            for i,j in enumerate(Node.Children):
+                sum_node_trees = SumNodeTrees(Node.Children[i])
+                if (sum_node_trees + 1) >= 2 and (sum_node_trees + 1) % 2 == 0:
+                    array_even_trees.append(Node.Children[i].Parent.NodeValue)
+                    array_even_trees.append(Node.Children[i].NodeValue)
+                MakingTrees(Node.Children[i],array_even_trees)    
+            return array_even_trees
+            
+        return MakingTrees(self.Root)
