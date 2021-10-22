@@ -76,8 +76,8 @@ class SimpleTree:
             for i,j in enumerate(Node.Children):
                 sum_node_trees = SumNodeTrees(Node.Children[i])
                 if (sum_node_trees + 1) >= 2 and (sum_node_trees + 1) % 2 == 0:
-                    array_even_trees.append(Node.Children[i].Parent.NodeValue)
-                    array_even_trees.append(Node.Children[i].NodeValue)
+                    array_even_trees.append(Node.Children[i].Parent)
+                    array_even_trees.append(Node.Children[i])
                 MakingTrees(Node.Children[i],array_even_trees)    
             return array_even_trees
             
