@@ -104,7 +104,7 @@ class SimpleGraph:
                     stack_pop_in_graph.pop()
                     if len(stack_pop_in_graph.stack) == 0: return "Путь не найден"
                     top_vfrom = stack_pop_in_graph.peek()
-                    looking_for_a_way(list_vertex,top_vfrom,top_vto,stack_pop_in_graph)
+                    
                     
         
         return looking_for_a_way(list_vertex,VFrom,VTo,stack_pop_in_graph)
