@@ -94,6 +94,8 @@ class SimpleGraph:
         if not self.CheckingVertexes(VFrom) or not self.CheckingVertexes(VTo):
             return stack_pop_in_graph.stack
         number_vertex = self.NumberVertex()
+        for i in range(number_vertex):
+            list_vertex[i].Hit = False
         while VFrom != None:                      
             list_vertex[VFrom].Hit = True      
             stack_pop_in_graph.push(VFrom)  
@@ -111,4 +113,4 @@ class SimpleGraph:
                     VFrom = stack_pop_in_graph.peek()
                     continue
                 break
-        return [stack_pop_in_graph.stack[i] for i in range(len(stack_pop_in_graph.stack)-1,-1,-1)]
+        return [list_vertex[stack_pop_in_graph.stack[i]] for i in range(len(stack_pop_in_graph.stack)-1,-1,-1)]
