@@ -37,6 +37,13 @@ class SimpleGraph:
         self.m_adjacency = [[0] * size for _ in range(size)]
         self.vertex = [None] * size
 
+    def NumberVertex(self):
+        number = 0
+        for i in self.vertex:
+            if i != None:
+                number += 1
+        return number
+
     def getAdjacencyMatrix(self):
         return self.m_adjacency
 
@@ -82,29 +89,26 @@ class SimpleGraph:
             adjacency_matrix[v1][v2] = adjacency_matrix[v2][v1] = 0
 
     def DepthFirstSearch(self, VFrom, VTo):
-        # узлы задаются позициями в списке vertex
-        # возвращается список узлов -- путь из VFrom в VTo
-        # или [] если пути нету
-        stack_pop_in_graph = Stack()                        # 0: Делаем стэк пустым
+        stack_pop_in_graph = Stack()                      
         list_vertex = self.getListVertex()
-        #top_vfrom = list_vertex[VFrom]                       # 1: Выбираем текущую вершину
-
-        def looking_for_a_way(list_vertex,top_vfrom,top_vto,stack_pop_in_graph):
-            list_vertex[top_vfrom].Hit = True
-            stack_pop_in_graph.push(top_vfrom)
-
-            while True:
-                if self.IsEdge(top_vfrom,top_vto):              # 4: пУНКТ 
-                    stack_pop_in_graph.push(top_vto)
-                    return stack_pop_in_graph
-                else:
-                    for i in range(len(list_vertex)):
-                        if i != top_vfrom and self.IsEdge(top_vfrom,i) and list_vertex[i].Hit == False:
-                            looking_for_a_way(list_vertex,i,top_vto,stack_pop_in_graph)
+        if not self.CheckingVertexes(VFrom) or not self.CheckingVertexes(VTo):
+            return stack_pop_in_graph.stack
+        number_vertex = self.NumberVertex()
+        while VFrom != None:                      
+            list_vertex[VFrom].Hit = True      
+            stack_pop_in_graph.push(VFrom)  
+            if self.IsEdge(VFrom,VTo):
+                stack_pop_in_graph.push(VTo)
+                break 
+            while len(stack_pop_in_graph.stack) >= 0: 
+                for i in range(number_vertex):
+                    if i != VFrom and list_vertex[i].Hit == False and self.IsEdge(VFrom,i):
+                        VFrom = i
+                        break
+                else:   
                     stack_pop_in_graph.pop()
-                    if len(stack_pop_in_graph.stack) == 0: return "Путь не найден"
-                    top_vfrom = stack_pop_in_graph.peek()
-                    
-                    
-        
-        return looking_for_a_way(list_vertex,VFrom,VTo,stack_pop_in_graph)
+                    if len(stack_pop_in_graph.stack) == 0: return stack_pop_in_graph.stack
+                    VFrom = stack_pop_in_graph.peek()
+                    continue
+                break
+        return [stack_pop_in_graph.stack[i] for i in range(len(stack_pop_in_graph.stack)-1,-1,-1)]
