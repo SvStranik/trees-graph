@@ -92,4 +92,3 @@ class SimpleGraph:
                                 flag = False
                     if flag: vertex_not_triangle.append(list_vertex[position])
         return vertex_not_triangle
-    
